@@ -303,9 +303,9 @@ int OnInit(){
 
 # CONTRIBUTING
 
-To reporting bugs or suggest improvements, please use the [issue tracker](https://github.com/vivazzi/jason/issues).
+To reporting bugs or suggest improvements, please use the [issue tracker](https://github.com/vivazzi/JAson/issues).
 
-Thank you very much, that you would like to contribute to JAson. Thanks to the [present, past and future contributors](https://github.com/vivazzi/jason/contributors).
+Thank you very much, that you would like to contribute to JAson. Thanks to the [present, past and future contributors](https://github.com/vivazzi/JAson/contributors).
 
 If you think you have discovered a security issue in code, please do not create issue or raise it in any public forum until we have had a chance to deal with it.
 **For security issues use security@vuspace.pro**
@@ -315,7 +315,7 @@ If you think you have discovered a security issue in code, please do not create 
 
 - Report bugs and suggest improvements:
     - https://www.mql5.com/en/code/13663 (recommended)
-    - https://github.com/vivazzi/jason/issues
+    - https://github.com/vivazzi/JAson/issues
     
 # LICENCE
 
