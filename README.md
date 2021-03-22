@@ -66,12 +66,19 @@ int OnInit(){
 >     
 >     data["b"] = nested_data;
 >     
->     Print(data["b"]["k1"].ToInt());  // will be 0 instead of 7
->     Print(data["b"]["k2"].ToStr());  // will be "" instead of "baz"
+>     Print(data["b"]["k1"].ToInt());  // bad value: 0 (instead of 7)
+>     Print(data["b"]["k2"].ToStr());  // bad value: "" (instead of "baz")
 >     Print(data.Serialize());
 > }
 > ```
 > See issue: https://github.com/vivazzi/JAson/issues/1
+> 
+> As workaround, you can use array assignment instead of object assignment:
+> ```mql4
+> data["b"].Add(nested_data);
+> Print(data["b"][0]["k1"].ToInt());  // 7
+> Print(data["b"][0]["k2"].ToStr());  // "baz"
+> ```
 
 
 To get value from Json object, you need use methods:
