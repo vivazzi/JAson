@@ -19,7 +19,7 @@ Add `#include <JAson.mqh>` and create `CJAVal` object to work with JSON data. Se
 int OnInit(){
     CJAVal data;
 
-    // simple structure
+    // --- simple structure ---
     data["a"] = 12;
     data["b"] = 3.14;
     data["b"] = "foo";
@@ -30,55 +30,37 @@ int OnInit(){
     Print(data["c"].ToStr());  // "foo"
     Print(data["d"].ToBool());  // true
 
-    // array structure
+    // --- array structure ---
     data["e"].Add("bar");
     data["e"].Add(2);
     
     Print(data["e"][0].ToStr());  // "bar"
     Print(data["e"][1].ToInt());  // 2
     
-    // nested structure
-    CJAVal nested_data;
-    nested_data["k1"] = 7;
-    nested_data["k2"] = "baz";
+    // --- nested structures ---
+    // - as part of array -
+    CJAVal sub_data_obj_in_list;
+    sub_data_obj_in_list["k1"] = 7;
+    sub_data_obj_in_list["k2"] = "baz";
     
-    data["e"].Add(nested_data);
+    data["e"].Add(sub_data_obj_in_list);
     
     Print(data["e"][2]["k1"].ToInt());  // 7
     Print(data["e"][2]["k2"].ToStr());  // "baz"
+    
+    // - as object -
+    CJAVal sub_data_obj;
+    sub_data_obj["sub_c"] = "muz2";
+    sub_data_obj["sub_d"] = 44;
+
+    data["f"].Set(sub_data_obj);
+    Print(data["f"]["sub_c"].ToStr());  // "muz2"
+    Print(data["f"]["sub_d"].ToInt());  // 44
 }
 ```
 
-> **WARNING**: At this moment JAson has a bug with assignment of CJAVal instance of Object type to other CJAVal instance:
-> ```mql4
-> #include <JAson.mqh>
-> 
-> int OnInit(){
->     CJAVal data;
-> 
->     // simple structure
->     data["a"] = 12;
-> 
->     // nested structure
->     CJAVal nested_data;
->     nested_data["k1"] = 7;
->     nested_data["k2"] = "baz";
->     
->     data["b"] = nested_data;
->     
->     Print(data["b"]["k1"].ToInt());  // bad value: 0 (instead of 7)
->     Print(data["b"]["k2"].ToStr());  // bad value: "" (instead of "baz")
->     Print(data.Serialize());
-> }
-> ```
-> See issue: https://github.com/vivazzi/JAson/issues/1
-> 
-> As workaround, you can use array assignment instead of object assignment:
-> ```mql4
-> data["b"].Add(nested_data);
-> Print(data["b"][0]["k1"].ToInt());  // 7
-> Print(data["b"][0]["k2"].ToStr());  // "baz"
-> ```
+> **WARNING**: To assign other `CJAVal` object to current, use method `Set()` instead of using the "=" sign directly, else current `CJAVal` object does not save key (saves blank key).  
+> For details see issue: https://github.com/vivazzi/JAson/issues/1
 
 
 To get value from Json object, you need use methods:
@@ -108,24 +90,27 @@ To use nested json, create other `CJAVal` object and assign to existed `CJAVal` 
 ```mql4
 CJAVal data;
 
+// - adding as object -
 CJAVal data_1;
-data_1["k1"] = 7;
-data_1["k2"] = "foo";
+data_1["d1_1"] = 7;
+data_1["d1_2"] = "foo";
 
-data["a"] = data_1;
+data["a"].Set(data_1);
 
+// - adding as part of array -
 CJAVal data_2;
-data_2["a"] = 1;
-data_2["b"] = "bar";
+data_2["d2_1"] = 1;
+data_2["d2_1"] = "bar";
 
 data["b"].Add("buz");
 data["b"].Add(data_2);
+data["b"].Add("muz");
 ```
 
 
 ## Serialization and Deserialization
 
-JAson provide the serialization and deserialization:
+JAson provides the serialization and deserialization:
 
 ```mql4
 #include <JAson.mqh>
@@ -188,9 +173,13 @@ int OnInit(){
     Print(data_2["b"].ToStr());  // "foo"
     
     // also you can join this Json objects to get full structure
-    data["body"] = data_2;
+    data["body"].Set(data_2);
+    Print(data["body"]["a"].ToInt());
+    Print(data["body"]["b"].ToStr());
 }
 ```
+
+In this example it has been used: [mql_requests](https://github.com/vivazzi/mql_requests) and online service [Getest](https://vivazzi.pro/en/dev/getest/) for testing GET and POST requests.
 
 ## Clear Json and check for the existence of a key
 
@@ -288,6 +277,17 @@ int OnInit(){
 }
 ```
 
+## API
+
+`CJAVal data;` - Creates CJAVal (Json) object  
+
+`data[key] = some_val;` - Adds `some_val` (int, double, string) to data with `key` key  
+`data[key].Add(other_data);` - Adds `other_data` (int, double, string or other CJAVal) to `key` array  
+`data[key].Set(other_data);` - Assigns `other_data` other `CJAVal` object to current data object with specified `key`
+
+`data.Clear();` - Clears `CJAVal` object  
+`data.Size();` - Gets size of `CJAVal` object  
+
 ## Run tests
 
 1. Copy `JAson/Experts/TestJAson.mq4` to `<TERMINAL DIR>/MQL(4/5)/Experts`
@@ -299,6 +299,7 @@ int OnInit(){
 1. Wrapped lines with `Print` with `DEBUG` define condition `#ifdef DEBUG Print(m_key+" "+string(__LINE__));#endif` to void extra info in terminal journal.
 2. Translated comments in library.
 3. Added unit tests.
+3. Expanded body of some functions for readability.
 
 # CONTRIBUTING
 
