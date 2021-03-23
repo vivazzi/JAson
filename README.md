@@ -212,7 +212,7 @@ Print(data["c"].ToInt())  // 123
 Print(data["d"].ToStr())  // "bar"
 ```
 
-But if you check "c" and "d" keys, that no longer exist (or never used keys), you get initial values for key:
+But if you check "a" and "b" keys, that no longer exist (or never used keys), you get initial values for key:
 
 ```mql4
 // old notexistent keys
