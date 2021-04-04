@@ -275,21 +275,30 @@ int OnInit(){
 
 ## API
 
+#### Constructors:
+
 - `CJAVal data;` - Creates `CJAVal` (Json) object.  
+- `CJAVal data(CJAVal* aparent, enJAType atype);` - Creates `CJAVal` object with specified type. `aparent` - parent for created `CJAVal` object (use `NULL` if no parent). `atype` - type of `CJAVal` object, available types: `jtUNDEF`, `jtNULL`, `jtBOOL`, `jtINT`, `jtDBL`, `jtSTR`, `jtARRAY`, `jtOBJ`.  
 - `CJAVal data(const double a, int aprec=-100);` - Creates `CJAVal` object of double type of specified precision.   
 
+
+#### Assigment methods:
 
 - `data[key] = some_val;` - Adds `some_val` (int, double, string or another `CJAVal`) to data with `key` key.  
 - `data[key].Add(other_data);` - Adds `other_data` (int, double, string or other CJAVal) to `key` array.  
 - `data[key].Add(const double a, int aprec=-2);` - Adds `a` of double type with specified precision to `key` array.  
 
 
-- `data.Clear(enJAType jt=jtUNDEF, bool savekey=false);` - Clears `CJAVal` object. `jt`- sets specified type of `CJAVal` object.  `savekey` - if `true`, values of all keys will be keys will be cleared, else all keys and values will be cleared.  
-- `data.Size();` - Gets size of `CJAVal` object.  
-
+#### Serialization and deserialization:
 
 - `data.Serialize();` - Convert `CJAVal` object to string.  
 - `data.Deserialize(string js, int acp=CP_ACP);` - Convert `js` string to `CJAVal` object. `data` gets result. `acp` - code page for deserialization. 
+
+
+#### Other helper methods:
+
+- `data.Clear(enJAType jt=jtUNDEF, bool savekey=false);` - Clears `CJAVal` object. `jt`- sets specified type of `CJAVal` object.  `savekey` - if `true`, values of all keys will be keys will be cleared, else all keys and values will be cleared.  
+- `data.Size();` - Gets size of `CJAVal` object.
 
 
 ## Run tests
