@@ -169,7 +169,7 @@ int OnInit(){
     Print(data_2["b"].ToStr());  // "foo"
     
     // also you can join this Json objects to get full structure
-    data["body"] =  data_2;
+    data["body"] = data_2;
     Print(data["body"]["a"].ToInt());
     Print(data["body"]["b"].ToStr());
 }
@@ -208,7 +208,7 @@ Print(data["c"].ToInt())  // 123
 Print(data["d"].ToStr())  // "bar"
 ```
 
-But if you check "c" and "d" keys, that no longer exist (or never used keys), you get initial values for key:
+But if you check "a" and "b" keys, that no longer exist (or never used keys), you get initial values for key:
 
 ```mql4
 // old notexistent keys
@@ -299,9 +299,9 @@ int OnInit(){
 
 # CONTRIBUTING
 
-To reporting bugs or suggest improvements, please use the [issue tracker](https://github.com/vivazzi/jason/issues).
+To reporting bugs or suggest improvements, please use the [issue tracker](https://github.com/vivazzi/JAson/issues).
 
-Thank you very much, that you would like to contribute to **JAson**. Thanks to the [present, past and future contributors](https://github.com/vivazzi/jason/contributors).
+Thank you very much, that you would like to contribute to **JAson**. Thanks to the [present, past and future contributors](https://github.com/vivazzi/JAson/contributors).
 
 If you think you have discovered a security issue in code, please do not create issue or raise it in any public forum until we have had a chance to deal with it.
 **For security issues use security@vuspace.pro**
@@ -311,7 +311,7 @@ If you think you have discovered a security issue in code, please do not create 
 
 - Report bugs and suggest improvements:
     - https://www.mql5.com/en/code/13663 (recommended)
-    - https://github.com/vivazzi/jason/issues
+    - https://github.com/vivazzi/JAson/issues
     
 # LICENCE
 
