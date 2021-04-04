@@ -12,4 +12,4 @@ CONTRIBUTORS
 
 ---
 
-[Pull request contributors](https://github.com/vivazzi/JAson/contributors).
+https://github.com/vivazzi/JAson/contributors
