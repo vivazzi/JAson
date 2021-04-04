@@ -275,13 +275,19 @@ int OnInit(){
 
 ## API
 
-`CJAVal data;` - Creates CJAVal (Json) object  
+`CJAVal data;` - Creates `CJAVal` (Json) object.  
+`CJAVal data(const double a, int aprec=-100);` - Creates `CJAVal` object of double type of specified precision.   
 
-`data[key] = some_val;` - Adds `some_val` (int, double, string or another `CJAVal`) to data with `key` key  
-`data[key].Add(other_data);` - Adds `other_data` (int, double, string or other CJAVal) to `key` array  
+`data[key] = some_val;` - Adds `some_val` (int, double, string or another `CJAVal`) to data with `key` key.  
+`data[key].Add(other_data);` - Adds `other_data` (int, double, string or other CJAVal) to `key` array.  
+`data[key].Add(const double a, int aprec=-2);` - Adds `a` of double type with specified precision to `key` array.  
 
-`data.Clear();` - Clears `CJAVal` object  
-`data.Size();` - Gets size of `CJAVal` object  
+`data.Clear(enJAType jt=jtUNDEF, bool savekey=false);` - Clears `CJAVal` object. `jt`- sets specified type of `CJAVal` object.  `savekey` - if `true`, values of all keys will be keys will be cleared, else all keys and values will be cleared.  
+`data.Size();` - Gets size of `CJAVal` object.  
+
+`data.Serialize();` - Convert `CJAVal` object to string.  
+`data.Deserialize(string js, int acp=CP_ACP);` - Convert `js` string to `CJAVal` object. `data` gets result. `acp` - code page for deserialization. 
+
 
 ## Run tests
 
