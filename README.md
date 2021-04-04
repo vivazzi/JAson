@@ -53,15 +53,11 @@ int OnInit(){
     sub_data_obj["sub_c"] = "muz2";
     sub_data_obj["sub_d"] = 44;
 
-    data["f"].Set(sub_data_obj);
+    data["f"] = sub_data_obj;
     Print(data["f"]["sub_c"].ToStr());  // "muz2"
     Print(data["f"]["sub_d"].ToInt());  // 44
 }
 ```
-
-> **WARNING**: To assign other `CJAVal` object to current, use method `Set()` instead of using the "=" sign directly, else current `CJAVal` object does not save key (saves blank key).  
-> For details see issue: https://github.com/vivazzi/JAson/issues/1
-
 
 To get value from Json object, you need use methods:
 
@@ -95,7 +91,7 @@ CJAVal data_1;
 data_1["d1_1"] = 7;
 data_1["d1_2"] = "foo";
 
-data["a"].Set(data_1);
+data["a"] = data_1;
 
 // - adding as part of array -
 CJAVal data_2;
@@ -173,7 +169,7 @@ int OnInit(){
     Print(data_2["b"].ToStr());  // "foo"
     
     // also you can join this Json objects to get full structure
-    data["body"].Set(data_2);
+    data["body"] =  data_2;
     Print(data["body"]["a"].ToInt());
     Print(data["body"]["b"].ToStr());
 }
@@ -281,9 +277,8 @@ int OnInit(){
 
 `CJAVal data;` - Creates CJAVal (Json) object  
 
-`data[key] = some_val;` - Adds `some_val` (int, double, string) to data with `key` key  
+`data[key] = some_val;` - Adds `some_val` (int, double, string or another `CJAVal`) to data with `key` key  
 `data[key].Add(other_data);` - Adds `other_data` (int, double, string or other CJAVal) to `key` array  
-`data[key].Set(other_data);` - Assigns `other_data` other `CJAVal` object to current data object with specified `key`
 
 `data.Clear();` - Clears `CJAVal` object  
 `data.Size();` - Gets size of `CJAVal` object  
@@ -300,12 +295,13 @@ int OnInit(){
 2. Translated comments in library.
 3. Added unit tests.
 3. Expanded body of some functions for readability.
+4. Fixed bugs (with assignment of nested `JAson` object and others).
 
 # CONTRIBUTING
 
 To reporting bugs or suggest improvements, please use the [issue tracker](https://github.com/vivazzi/jason/issues).
 
-Thank you very much, that you would like to contribute to JAson. Thanks to the [present, past and future contributors](https://github.com/vivazzi/jason/contributors).
+Thank you very much, that you would like to contribute to **JAson**. Thanks to the [present, past and future contributors](https://github.com/vivazzi/jason/contributors).
 
 If you think you have discovered a security issue in code, please do not create issue or raise it in any public forum until we have had a chance to deal with it.
 **For security issues use security@vuspace.pro**
@@ -319,7 +315,7 @@ If you think you have discovered a security issue in code, please do not create 
     
 # LICENCE
 
-Copyright © 2021 Alexey Sergeev.
+Copyright © 2021 Alexey Sergeev and [contributors](https://github.com/vivazzi/jason/CONTRIBUTORS.md).
 
 Small fixes and unit tests: Artem Maltsev.
 
