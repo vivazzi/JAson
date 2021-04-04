@@ -307,7 +307,7 @@ int OnInit(){
 
 To reporting bugs or suggest improvements, please use the [issue tracker](https://github.com/vivazzi/JAson/issues).
 
-Thank you very much, that you would like to contribute to **JAson**. Thanks to the [present, past and future contributors](https://github.com/vivazzi/JAson/contributors).
+Thank you very much, that you would like to contribute to **JAson**. Thanks to the [present, past and future contributors](https://github.com/vivazzi/JAson/blob/main/CONTRIBUTORS.md).
 
 If you think you have discovered a security issue in code, please do not create issue or raise it in any public forum until we have had a chance to deal with it.
 **For security issues use security@vuspace.pro**
@@ -321,7 +321,7 @@ If you think you have discovered a security issue in code, please do not create 
     
 # LICENCE
 
-Copyright © 2021 Alexey Sergeev and [contributors](https://github.com/vivazzi/jason/CONTRIBUTORS.md).
+Copyright © 2021 Alexey Sergeev and [contributors](https://github.com/vivazzi/JAson/blob/main/CONTRIBUTORS.md).
 
 Small fixes and unit tests: Artem Maltsev.
 
