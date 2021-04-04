@@ -12,4 +12,4 @@ CONTRIBUTORS
 
 ---
 
-Thank you very much, that you would like to contribute to **JAson**. Thanks to the [present, past and future contributors](https://github.com/vivazzi/JAson/contributors).
+[Pull request contributors](https://github.com/vivazzi/JAson/contributors).
