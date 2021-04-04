@@ -301,6 +301,12 @@ int OnInit(){
 - `data.Size();` - Gets size of `CJAVal` object.
 
 
+### Precision rules of double type for m_prec parameter
+
+- If the `m_prec` value is in the range from 0 to 16, then a string representation of the number with the specified number of decimal places will be obtained.  
+- If the `m_prec` value is in the range from -1 to -16, then the string representation of the number in scientific format with the specified number of decimal places will be obtained.  
+- In all other cases, the string representation of the number will contain 8 decimal places.  
+
 ## Run tests
 
 1. Copy `JAson/Experts/TestJAson.mq4` to `<TERMINAL DIR>/MQL(4/5)/Experts`
