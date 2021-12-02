@@ -22,7 +22,7 @@ int OnInit(){
     // --- simple structure ---
     data["a"] = 12;
     data["b"] = 3.14;
-    data["b"] = "foo";
+    data["c"] = "foo";
     data["d"] = true;
 
     Print(data["a"].ToInt());  // 12
