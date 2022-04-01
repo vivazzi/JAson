@@ -3,7 +3,7 @@
 Realization of JSON protocol in mql4 / mql5. 
 You can create JSON object with data of different types and run serialization and deserialization of JSON data.
 
-This repo is fork of **JAson v. 1.12** (https://www.mql5.com/en/code/13663) with small fixes and unit tests.
+This repo is fork of **JAson** (https://www.mql5.com/en/code/13663) with improvements, refactoring code, unit tests and translating of comments to English.
 
 ## Installing
 
@@ -237,19 +237,19 @@ Then in example above:
 ```mql4
 // old notexistent keys
 Print(data["a"].ToDbl());  // 0.0
-Print(data["a"].m_type);  // jtUNDEF
+Print(data["a"].type);  // jtUNDEF
 Print(data["b"].ToStr());  // ""
-Print(data["b"].m_type);  // jtUNDEF
+Print(data["b"].type);  // jtUNDEF
 
 // current keys
 Print(data["c"].ToInt());  // 123
-Print(data["c"].m_type);  // jtINT
+Print(data["c"].type);  // jtINT
 Print(data["d"].ToStr());  // "bar"
-Print(data["d"].m_type);  // jtSTR
+Print(data["d"].type);  // jtSTR
 
 // never used keys
 Print(data["e"].ToStr());  // ""
-Print(data["e"].m_type);  // jtUNDEF
+Print(data["e"].type);  // jtUNDEF
 ```
 
 So you can compare key type with `jtUNDEF`, if you want to check for the existence of a key:
@@ -265,7 +265,7 @@ int OnInit(){
     data.Clear();
     data["c"] = 123;
     
-    if (data["a"].m_type == jtUNDEF) {
+    if (data["a"].type == jtUNDEF) {
         // do something
     } else {
         // else do something
@@ -278,48 +278,40 @@ int OnInit(){
 #### Constructors:
 
 - `CJAVal data;` - Creates `CJAVal` (Json) object.  
-- `CJAVal data(CJAVal* aparent, enJAType atype);` - Creates `CJAVal` object with specified type. `aparent` - parent for created `CJAVal` object (use `NULL` if no parent). `atype` - type of `CJAVal` object, available types: `jtUNDEF`, `jtNULL`, `jtBOOL`, `jtINT`, `jtDBL`, `jtSTR`, `jtARRAY`, `jtOBJ`.  
-- `CJAVal data(const double a, int aprec=-100);` - Creates `CJAVal` object of double type of specified precision.   
+- `CJAVal data(CJAVal* a_parent, enJAType a_type);` - Creates `CJAVal` object with specified type. `a_parent` - parent for created `CJAVal` object (use `NULL` if no parent). `a_type` - type of `CJAVal` object, available types: `jtUNDEF`, `jtNULL`, `jtBOOL`, `jtINT`, `jtDBL`, `jtSTR`, `jtARRAY`, `jtOBJ`.  
+- `CJAVal data(const double v, int precision=-100);` - Creates `CJAVal` object of double type of specified precision.   
 
 
 #### Assigment methods:
 
 - `data[key] = some_val;` - Adds `some_val` (int, double, string or another `CJAVal`) to data with `key` key.  
 - `data[key].Add(other_data);` - Adds `other_data` (int, double, string or other CJAVal) to `key` array.  
-- `data[key].Add(const double a, int aprec=-2);` - Adds `a` of double type with specified precision to `key` array.  
+- `data[key].Add(const double v, int precision=-2);` - Adds `v` of double type with specified precision to `key` array.  
 
 
 #### Serialization and deserialization:
 
 - `data.Serialize();` - Convert `CJAVal` object to string.  
-- `data.Deserialize(string js, int acp=CP_ACP);` - Convert `js` string to `CJAVal` object. `data` gets result. `acp` - code page for deserialization. 
+- `data.Deserialize(string json, int acp=CP_ACP);` - Convert `json` string to `CJAVal` object. `data` gets result. `acp` - code page for deserialization. 
 
 
 #### Other helper methods:
 
-- `data.Clear(enJAType jt=jtUNDEF, bool savekey=false);` - Clears `CJAVal` object. `jt`- sets specified type of `CJAVal` object.  `savekey` - if `true`, values of all keys will be keys will be cleared, else all keys and values will be cleared.  
+- `data.Clear(enJAType jt=jtUNDEF, bool save_key=false);` - Clears `CJAVal` object. `jt`- sets specified type of `CJAVal` object. `save_key` - if `true`, values of all keys will be keys will be cleared, else all keys and values will be cleared.  
 - `data.Size();` - Gets size of `CJAVal` object.
 
 
-### Precision rules of double type for m_prec parameter
+### Precision rules of double type for dbl_precision parameter
 
-- If the `m_prec` value is in the range from 0 to 16, then a string representation of the number with the specified number of decimal places will be obtained.  
-- If the `m_prec` value is in the range from -1 to -16, then the string representation of the number in scientific format with the specified number of decimal places will be obtained.  
+- If the `dbl_precision` value is in the range from 0 to 16, then a string representation of the number with the specified number of decimal places will be obtained.  
+- If the `dbl_precision` value is in the range from -1 to -16, then the string representation of the number in scientific format with the specified number of decimal places will be obtained.  
 - In all other cases, the string representation of the number will contain 8 decimal places.  
 
 ## Run tests
 
-1. Copy `JAson/Experts/TestJAson.mq4` to `<TERMINAL DIR>/MQL(4/5)/Experts`
+1. Copy `JAson/Scripts/` folder to `<TERMINAL DIR>/MQL(4/5)/Scripts/`
 2. Compile `TestJAson.mq4` and run `TestJAson.ex4` in terminal in a window of any trading pair.
-3. Look test result in `<TERMINAL DIR>/Files/TestJAson_unit_test_log.txt`
-
-## Fixes of fork
-
-1. Wrapped lines with `Print` with `DEBUG` define condition `#ifdef DEBUG Print(m_key+" "+string(__LINE__));#endif` to void extra info in terminal journal.
-2. Translated comments in library.
-3. Added unit tests.
-3. Expanded body of some functions for readability.
-4. Fixed bugs (with assignment of nested `JAson` object and others).
+3. Look test result in `<TERMINAL DIR>/MQL(4/5)/Files/TestJAson_unit_test_log.txt`
 
 # CONTRIBUTING
 
@@ -334,13 +326,12 @@ If you think you have discovered a security issue in code, please do not create 
 # LINKS
 
 - Report bugs and suggest improvements:
-    - https://www.mql5.com/en/code/13663 (recommended)
-    - https://github.com/vivazzi/JAson/issues
+    - https://github.com/vivazzi/JAson/issues (strongly recommended)
+    - https://www.mql5.com/en/code/13663 (not tracked by the repo author)
+- Author's site of this repo, Artem Maltsev: https://vivazzi.pro
     
 # LICENCE
 
-Copyright © 2021 Alexey Sergeev and [contributors](https://github.com/vivazzi/JAson/blob/main/CONTRIBUTORS.md).
-
-Small fixes and unit tests: Artem Maltsev.
+Copyright © 2021 Alexey Sergeev, Artem Maltsev and [contributors](https://github.com/vivazzi/JAson/blob/main/CONTRIBUTORS.md).
 
 MIT licensed.
