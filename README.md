@@ -155,7 +155,7 @@ int OnInit(){
     Requests requests;
     Response response = requests.post("https://vivazzi.pro/test-request/", data.Serialize());
     
-    Print(response.text);  // {"status": "OK", "method": "POST", "body": "{"a": 7, "b": "foo"}"}
+    Print(response.text);  // {"status": "OK", "method": "POST", "body": {"a": 7, "b": "foo"}}
     data.Deserialize(response.text);
     
     Print(data["status"].ToStr());  // "OK"
